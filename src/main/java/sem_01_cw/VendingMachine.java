@@ -23,10 +23,11 @@ public class VendingMachine {
 
     public Product findProduct(String name) {
         for (Product product: getProducts()) {
-            if (product.getName().equals(name)) {
+            if (product.getName().equalsIgnoreCase(name)) {
                 return product;
             }
         }
+        System.out.println("Товар " + name + " не найден");
         return null;
     }
 
@@ -35,21 +36,24 @@ public class VendingMachine {
         if (productFound == null) {
             return null;
         }
-        if (productFound.getCost() == price) {
+        if (productFound.getCost() <= price) {
             products.remove(productFound);
             money += productFound.getCost();
+            System.out.println("Спасибо за покупку " + productFound);
+            System.out.println("Сдача: " + Math.round((price - productFound.getCost())) + " руб.");
             return productFound;
         }
+        System.out.println("Цена не соответствует внесенной сумме");
         return null;
     }
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output = new StringBuilder().append("\n---Товары в автомате:---\n");
         for (Product product: getProducts()) {
             output.append(product).append("\n");
         }
-        output.append(money);
+        output.append("Денег в автомате: ").append(money).append("\n-----\n");
         return output.toString();
     }
 }
