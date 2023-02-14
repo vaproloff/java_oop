@@ -7,10 +7,10 @@ public abstract class Animal {
         this.name = name;
     }
 
-    public abstract String feed();
+    public abstract String eat();
 
     @Override
     public String toString() {
-        return String.format("My name is %s.", name);
+        return String.format("My name is %s. %s", name, eat());
     }
 }

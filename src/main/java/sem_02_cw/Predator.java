@@ -6,7 +6,7 @@ public abstract class Predator extends Animal {
     }
 
     @Override
-    public String feed() {
-        return "Eat meat";
+    public String eat() {
+        return "I eat meat.";
     }
 }

@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public class Duck extends Herbivores implements Speakable, Runable, Flyable {
+public class Duck extends Herbivores implements Speakable, Runable, Flyable, Swimmable {
     public Duck(String name) {
         super(name);
     }
@@ -9,6 +9,11 @@ public class Duck extends Herbivores implements Speakable, Runable, Flyable {
     public String toString() {
         return String.format("I am duck. %s I run with speed %d and fly with speed %d.",
                 super.toString(), speedOfRun(), speedOfFly());
+    }
+
+    @Override
+    public String say() {
+        return "Quack";
     }
 
     @Override
@@ -22,7 +27,7 @@ public class Duck extends Herbivores implements Speakable, Runable, Flyable {
     }
 
     @Override
-    public String say() {
-        return "Quack";
+    public int speedOfSwim() {
+        return 8;
     }
 }
