@@ -1,5 +1,5 @@
 package sem_02_cw;
 
-public interface Sayable {
+public interface Speakable {
     String say();
 }

@@ -17,11 +17,15 @@ public class Zoo {
         return animals;
     }
 
-    public List<Sayable> getSayables() {
-        List<Sayable> sayables = new ArrayList<>();
-        sayables.addAll(animals);
-        sayables.add(radio);
-        return sayables;
+    public List<Speakable> getSpeakables() {
+        List<Speakable> speakables = new ArrayList<>();
+        for (Animal animal: animals) {
+            if (animal instanceof Speakable) {
+                speakables.add((Speakable) animal);
+            }
+        }
+        speakables.add(radio);
+        return speakables;
     }
 
     public List<Runable> getRunables() {
@@ -44,6 +48,16 @@ public class Zoo {
         return flyables;
     }
 
+    public List<Swimmable> getSwimmables() {
+        List<Swimmable> swimmables = new ArrayList<>();
+        for (Animal animal: animals) {
+            if (animal instanceof Swimmable) {
+                swimmables.add((Swimmable) animal);
+            }
+        }
+        return swimmables;
+    }
+
     public Runable getChampionOfRun() {
         List<Runable> runables = getRunables();
         Runable champion = runables.get(0);
@@ -60,6 +74,17 @@ public class Zoo {
         Flyable champion = flyables.get(0);
         for (Flyable animal: flyables) {
             if (animal.speedOfFly() > champion.speedOfFly()) {
+                champion = animal;
+            }
+        }
+        return champion;
+    }
+
+    public Swimmable getChampionOfSwim() {
+        List<Swimmable> swimmables = getSwimmables();
+        Swimmable champion = swimmables.get(0);
+        for (Swimmable animal: swimmables) {
+            if (animal.speedOfSwim() > champion.speedOfSwim()) {
                 champion = animal;
             }
         }

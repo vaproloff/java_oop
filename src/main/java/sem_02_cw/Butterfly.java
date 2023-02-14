@@ -14,9 +14,4 @@ public class Butterfly extends Herbivores implements Flyable {
     public String toString() {
         return String.format("I am butterfly. %s I fly with speed %d.", super.toString(), speedOfFly());
     }
-
-    @Override
-    public String say() {
-        return "Shhhh";
-    }
 }

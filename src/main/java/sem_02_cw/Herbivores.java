@@ -6,7 +6,7 @@ public abstract class Herbivores extends Animal {
     }
 
     @Override
-    public String feed() {
-        return "Eat herbs";
+    public String eat() {
+        return "I eat herbs.";
     }
 }

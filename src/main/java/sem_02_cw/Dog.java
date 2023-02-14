@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public class Dog extends Predator implements Runable {
+public class Dog extends Predator implements Speakable, Runable, Swimmable {
     public Dog(String name) {
         super(name);
     }
@@ -18,5 +18,10 @@ public class Dog extends Predator implements Runable {
     @Override
     public int speedOfRun() {
         return 20;
+    }
+
+    @Override
+    public int speedOfSwim() {
+        return 3;
     }
 }
