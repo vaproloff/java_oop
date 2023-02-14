@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public abstract class Animal implements Sayable {
+public abstract class Animal {
     private String name;
 
     public Animal(String name) {

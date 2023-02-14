@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public class Cow extends Herbivores implements Runable {
+public class Cow extends Herbivores implements Speakable, Runable {
     public Cow(String name) {
         super(name);
     }

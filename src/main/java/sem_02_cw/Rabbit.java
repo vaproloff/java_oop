@@ -11,11 +11,6 @@ public class Rabbit extends Herbivores implements Runable {
     }
 
     @Override
-    public String say() {
-        return "Phhhh";
-    }
-
-    @Override
     public int speedOfRun() {
         return 22;
     }

@@ -17,11 +17,15 @@ public class Zoo {
         return animals;
     }
 
-    public List<Sayable> getSayables() {
-        List<Sayable> sayables = new ArrayList<>();
-        sayables.addAll(animals);
-        sayables.add(radio);
-        return sayables;
+    public List<Speakable> getSpeakables() {
+        List<Speakable> speakables = new ArrayList<>();
+        for (Animal animal: animals) {
+            if (animal instanceof Speakable) {
+                speakables.add((Speakable) animal);
+            }
+        }
+        speakables.add(radio);
+        return speakables;
     }
 
     public List<Runable> getRunables() {

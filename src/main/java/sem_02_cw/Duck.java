@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public class Duck extends Herbivores implements Runable, Flyable {
+public class Duck extends Herbivores implements Speakable, Runable, Flyable {
     public Duck(String name) {
         super(name);
     }

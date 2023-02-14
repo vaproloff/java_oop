@@ -12,7 +12,7 @@ public class Main {
                 new Duck("Donald"),
                 new Butterfly("Molly")));
 
-        for (Sayable animal: zoo.getSayables()) {
+        for (Speakable animal: zoo.getSpeakables()) {
             System.out.println(animal.say());
         }
 

@@ -1,6 +1,6 @@
 package sem_02_cw;
 
-public class Cat extends Predator implements Runable {
+public class Cat extends Predator implements Speakable, Runable {
     public Cat(String name) {
         super(name);
     }
