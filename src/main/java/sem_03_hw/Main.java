@@ -53,5 +53,12 @@ public class Main {
         for (int number: numbers) {
             System.out.println(number);
         }
+
+        System.out.println("---");
+        System.out.println("Пустой ли список: " + numbers.isEmpty());
+        System.out.println("Очистка списка...");
+        numbers.clear();
+        System.out.println("Пустой ли теперь список: " + numbers.isEmpty());
+        System.out.println("Список: " + numbers + ". Длина: " + numbers.size());
     }
 }

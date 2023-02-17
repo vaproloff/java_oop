@@ -161,13 +161,28 @@ public class MyLinkedList<E> implements Iterable<E> {
         return true;
     }
 
+    public boolean isEmpty() {
+        return listSize == 0;
+    }
+
+    public void clear() {
+        firstElement = null;
+        lastElement = null;
+        listSize = 0;
+    }
+
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder().append("{");
-        for (int i = 0; i < listSize - 1; i++) {
-            output.append(get(i)).append(", ");
+        int index = 0;
+        for (E element: this) {
+            output.append(element);
+            if (index != listSize - 1) {
+                output.append(", ");
+            }
+            index++;
         }
-        output.append(get(listSize - 1)).append("}");
+        output.append("}");
 
         return output.toString();
     }
