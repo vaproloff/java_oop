@@ -27,8 +27,9 @@ public abstract class Warrior<W extends Weapon, S extends Shield> {
 
     public void makeDamage(Warrior warrior) {
         Random random = new Random();
-        int damage = random.nextInt(getWeapon().getDamage())
-                * (this instanceof Archer ? 1 : random.nextInt(0, 2));
+        int isFootmanDamagesArcher = (this instanceof Footman && warrior instanceof Archer
+                ? random.nextInt(0, 2) : 1);
+        int damage = random.nextInt(getWeapon().getDamage()) * isFootmanDamagesArcher;
         warrior.getDamage(damage);
     }
 
