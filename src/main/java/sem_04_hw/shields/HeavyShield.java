@@ -7,6 +7,6 @@ public class HeavyShield extends Shield {
 
     @Override
     public String toString() {
-        return String.format("Легкий%s", super.toString());
+        return String.format("Тяжёлый%s", super.toString());
     }
 }
