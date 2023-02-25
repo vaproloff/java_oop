@@ -14,7 +14,7 @@ public class ViewUser {
         this.userController = userController;
     }
 
-    public void run(){
+    public void run() {
         Commands com = Commands.NONE;
 
         while (true) {
@@ -34,6 +34,9 @@ public class ViewUser {
                         break;
                     case DELETE:
                         caseDelete();
+                        break;
+                    case UPDATE:
+                        caseUpdate();
                         break;
                 }
             } catch (Exception e) {
@@ -61,7 +64,7 @@ public class ViewUser {
 
     private void caseList() {
         List<User> users = userController.readUsers();
-        for (User user: users) {
+        for (User user : users) {
             System.out.println(user);
         }
     }
@@ -79,6 +82,38 @@ public class ViewUser {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void caseUpdate() {
+        String id = prompt("Идентификатор пользователя: ");
+        try {
+            User foundUser = userController.readUser(id);
+            if (foundUser != null) {
+                System.out.println(foundUser);
+                String changeChoice = prompt("Изменить (1 - имя, 2 - фамилию, 3 - телефон): ");
+                switch (changeChoice) {
+                    case "1" -> {
+                        String newFirstName = prompt("Новое имя: ");
+                        foundUser.setFirstName(newFirstName);
+                        userController.updateUser(id, foundUser);
+                    }
+                    case "2" -> {
+                        String newLastName = prompt("Новая фамилия: ");
+                        foundUser.setLastName(newLastName);
+                        userController.updateUser(id, foundUser);
+                    }
+                    case "3" -> {
+                        String newPhone = prompt("Новый телефон: ");
+                        foundUser.setPhone(newPhone);
+                        userController.updateUser(id, foundUser);
+                    }
+                    default -> {
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String prompt(String message) {
