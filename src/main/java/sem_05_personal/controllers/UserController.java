@@ -28,7 +28,7 @@ public class UserController {
             }
         }
 
-        throw new Exception("User not found");
+        throw new Exception("User not found\n");
     }
 
     public List<User> readUsers() {
@@ -36,7 +36,7 @@ public class UserController {
         return users;
     }
 
-    public void deleteUser(String userId) {
-        repository.deleteUser(userId);
+    public User deleteUser(String userId) {
+        return repository.deleteUser(userId);
     }
 }

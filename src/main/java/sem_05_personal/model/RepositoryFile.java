@@ -49,7 +49,7 @@ public class RepositoryFile implements Repository {
         fileOperation.saveAllLines(lines);
     }
 
-    public void deleteUser(String userId) {
+    public User deleteUser(String userId) {
         List<User> users = getAllUsers();
         User foundUser = null;
         for (User user: users) {
@@ -59,7 +59,8 @@ public class RepositoryFile implements Repository {
         }
         if (foundUser != null) {
             users.remove(foundUser);
+            saveRepository(users);
         }
-        saveRepository(users);
+        return foundUser;
     }
 }

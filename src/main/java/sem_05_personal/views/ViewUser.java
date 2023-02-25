@@ -37,7 +37,7 @@ public class ViewUser {
                         break;
                 }
             } catch (Exception e) {
-                System.out.printf("Произошла ошибка: %s", e.getMessage());
+                System.out.printf("Произошла ошибка: %s\n", e.getMessage());
             }
         }
     }
@@ -69,8 +69,12 @@ public class ViewUser {
     private void caseDelete() {
         String id = prompt("Идентификатор пользователя: ");
         try {
-            userController.deleteUser(id);
-            System.out.printf("User %s deleted", id);
+            User deletedUser = userController.deleteUser(id);
+            if (deletedUser != null) {
+                System.out.printf("User %s deleted\n", deletedUser.getFirstName());
+            } else {
+                System.out.println("User not found\n");
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
