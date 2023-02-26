@@ -23,21 +23,11 @@ public class ViewUser {
                 com = Commands.valueOf(command.toUpperCase());
                 if (com == Commands.EXIT) return;
                 switch (com) {
-                    case CREATE:
-                        caseCreate();
-                        break;
-                    case READ:
-                        caseRead();
-                        break;
-                    case LIST:
-                        caseList();
-                        break;
-                    case DELETE:
-                        caseDelete();
-                        break;
-                    case UPDATE:
-                        caseUpdate();
-                        break;
+                    case CREATE -> caseCreate();
+                    case READ -> caseRead();
+                    case LIST -> caseList();
+                    case DELETE -> caseDelete();
+                    case UPDATE -> caseUpdate();
                 }
             } catch (Exception e) {
                 System.out.printf("Произошла ошибка: %s\n", e.getMessage());

@@ -1,5 +1,5 @@
 .idea/
 target/
 src/test/
-/users.*
+src/main/java/sem_05_personal/users.*
 .DS_Store

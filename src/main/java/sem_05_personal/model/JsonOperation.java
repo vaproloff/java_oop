@@ -11,18 +11,27 @@ public class JsonOperation {
 
     public JsonOperation(String fileName) {
         this.fileName = fileName;
+        try (FileWriter writer = new FileWriter(fileName, true)) {
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public JSONArray readFromJson() {
         JSONParser parser = new JSONParser();
-        try (Reader reader = new FileReader(fileName)) {
-            return (JSONArray) parser.parse(reader);
+        try {
+            File file = new File(fileName);
+            if (file.length() != 0) {
+                FileReader reader = new FileReader(file);
+                return (JSONArray) parser.parse(reader);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return null;
+        return new JSONArray();
     }
 
     public void saveToJson(JSONArray usersJson) {
