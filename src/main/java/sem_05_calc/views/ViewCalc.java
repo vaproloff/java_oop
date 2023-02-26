@@ -1,9 +1,18 @@
 package sem_05_calc.views;
 
+import sem_05_calc.controllers.CalcController;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ViewCalc {
+
+    private CalcController calc;
     private Validator validator = new Validator();
+
+    public ViewCalc(CalcController calc) {
+        this.calc = calc;
+    }
 
     public void run() {
         while (true) {
@@ -13,7 +22,7 @@ public class ViewCalc {
                 switch (command) {
                     case "1" -> caseComplex();
                     case "2" -> caseRational();
-                    case "3" -> {
+                    case "0" -> {
                         return;
                     }
                 }
@@ -23,18 +32,18 @@ public class ViewCalc {
         }
     }
 
-    private void caseComplex() {
+    private void caseComplex() throws IOException {
         String num1 = getComplexNum();
         String operator = getOperator();
         String num2 = getComplexNum();
-
+        System.out.printf("%s %s %s = %s%n", num1, operator, num2, calc.calcComplex(num1, num2, operator));
     }
 
-    private void caseRational() {
+    private void caseRational() throws IOException {
         String num1 = getRationalNum();
         String operator = getOperator();
         String num2 = getRationalNum();
-
+        System.out.printf("%s %s %s = %s%n", num1, operator, num2, calc.calcRational(num1, num2, operator));
     }
 
     private String getOperator() {
@@ -51,7 +60,7 @@ public class ViewCalc {
     private String getComplexNum() {
         String num = "";
         while (!validator.validateComplex(num)) {
-            num = prompt("Введите комплексное число в формате a + bj: ");
+            num = prompt("Введите комплексное число в формате a + bi: ");
             if (!validator.validateComplex(num)) {
                 System.out.println("Неверный ввод, попробуйте снова.");
             }

@@ -3,7 +3,8 @@ package sem_05_calc.views;
 import java.util.regex.Pattern;
 
 public class Validator {
-    private Pattern patternComplex = Pattern.compile("\\(?-?\\d+(?:\\.\\d+)?\\s?[+-]\\s?\\d+(?:\\.\\d+)?j\\)?");
+    private Pattern patternComplex = Pattern.compile("(-?\\d+(?:\\.\\d+)?\\s?[+\\-]\\s?\\d+(?:\\.\\d+)?i)" +
+            "|(-?\\d+(?:\\.\\d+)?i?)");
     private Pattern patternRational = Pattern.compile("-?[1-9]\\d*(?:/[1-9]\\d*)?");
     private Pattern patternOperator = Pattern.compile("[+\\-*/]");
 

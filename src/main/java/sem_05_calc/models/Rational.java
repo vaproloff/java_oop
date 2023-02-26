@@ -10,8 +10,19 @@ public class Rational {
         reduceFraction();
     }
 
+    public Rational(String inputNum) {
+        String[] rationalArr = inputNum.split("/");
+        this.numerator = Integer.parseInt(rationalArr[0].replaceAll(" ", ""));
+        if (rationalArr.length > 1) {
+            this.denominator = Integer.parseInt(rationalArr[1].replaceAll(" ", ""));
+        } else {
+            this.denominator = 1;
+        }
+        reduceFraction();
+    }
+
     private void reduceFraction() {
-        int nod = findNod(numerator, denominator);
+        int nod = findNod(Math.abs(numerator), denominator);
         numerator /= nod;
         denominator /= nod;
     }
@@ -50,6 +61,9 @@ public class Rational {
 
     @Override
     public String toString() {
-        return String.format("%d / %d", numerator, denominator);
+        if (denominator == 1) {
+            return String.format("%d", numerator);
+        }
+        return String.format("%d/%d", numerator, denominator);
     }
 }
