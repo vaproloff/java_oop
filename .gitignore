@@ -1,6 +1,6 @@
 .idea/
 target/
 src/test/
-/users.txt
+src/main/java/sem_05_personal/users.*
 .DS_Store
 calclog.*

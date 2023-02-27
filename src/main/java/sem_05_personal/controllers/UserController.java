@@ -21,14 +21,11 @@ public class UserController {
     }
 
     public User readUser(String userId) throws Exception {
-        List<User> users = repository.getAllUsers();
-        for (User user : users) {
-            if (user.getId().equals(userId)) {
-                return user;
-            }
+        User foundUser = repository.findUserById(repository.getAllUsers(), userId);
+        if (foundUser != null) {
+            return foundUser;
         }
-
-        throw new Exception("User not found");
+        throw new Exception("User not found\n");
     }
 
     public List<User> readUsers() {
@@ -36,7 +33,12 @@ public class UserController {
         return users;
     }
 
-    public void deleteUser(String userId) {
-        repository.deleteUser(userId);
+    public User deleteUser(String userId) {
+        return repository.deleteUser(userId);
+    }
+
+    public void updateUser(String userId, User updatedUser) throws Exception {
+        validator.check(updatedUser);
+        repository.updateUser(userId, updatedUser);
     }
 }

@@ -14,7 +14,7 @@ public class ViewUser {
         this.userController = userController;
     }
 
-    public void run(){
+    public void run() {
         Commands com = Commands.NONE;
 
         while (true) {
@@ -23,21 +23,14 @@ public class ViewUser {
                 com = Commands.valueOf(command.toUpperCase());
                 if (com == Commands.EXIT) return;
                 switch (com) {
-                    case CREATE:
-                        caseCreate();
-                        break;
-                    case READ:
-                        caseRead();
-                        break;
-                    case LIST:
-                        caseList();
-                        break;
-                    case DELETE:
-                        caseDelete();
-                        break;
+                    case CREATE -> caseCreate();
+                    case READ -> caseRead();
+                    case LIST -> caseList();
+                    case DELETE -> caseDelete();
+                    case UPDATE -> caseUpdate();
                 }
             } catch (Exception e) {
-                System.out.printf("Произошла ошибка: %s", e.getMessage());
+                System.out.printf("Произошла ошибка: %s\n", e.getMessage());
             }
         }
     }
@@ -61,7 +54,7 @@ public class ViewUser {
 
     private void caseList() {
         List<User> users = userController.readUsers();
-        for (User user: users) {
+        for (User user : users) {
             System.out.println(user);
         }
     }
@@ -69,12 +62,48 @@ public class ViewUser {
     private void caseDelete() {
         String id = prompt("Идентификатор пользователя: ");
         try {
-            userController.deleteUser(id);
-            System.out.printf("User %s deleted", id);
+            User deletedUser = userController.deleteUser(id);
+            if (deletedUser != null) {
+                System.out.printf("User %s deleted\n", deletedUser.getFirstName());
+            } else {
+                System.out.println("User not found\n");
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void caseUpdate() {
+        String id = prompt("Идентификатор пользователя: ");
+        try {
+            User foundUser = userController.readUser(id);
+            if (foundUser != null) {
+                System.out.println(foundUser);
+                String changeChoice = prompt("Изменить (1 - имя, 2 - фамилию, 3 - телефон): ");
+                switch (changeChoice) {
+                    case "1" -> {
+                        String newFirstName = prompt("Новое имя: ");
+                        foundUser.setFirstName(newFirstName);
+                        userController.updateUser(id, foundUser);
+                    }
+                    case "2" -> {
+                        String newLastName = prompt("Новая фамилия: ");
+                        foundUser.setLastName(newLastName);
+                        userController.updateUser(id, foundUser);
+                    }
+                    case "3" -> {
+                        String newPhone = prompt("Новый телефон: ");
+                        foundUser.setPhone(newPhone);
+                        userController.updateUser(id, foundUser);
+                    }
+                    default -> {
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String prompt(String message) {
