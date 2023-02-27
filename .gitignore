@@ -3,3 +3,4 @@ target/
 src/test/
 src/main/java/sem_05_personal/users.*
 .DS_Store
+calclog.*
