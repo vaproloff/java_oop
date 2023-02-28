@@ -1,3 +1,5 @@
+package sem_06_hw;
+
 public class Main{
 	public static void main(String[] args){
 		User user = new User("Bob");
