@@ -13,7 +13,7 @@ public class NotepadController {
     }
 
     public Note getNodeById(String id) throws Exception {
-        Note foundNote = (Note) repo.getById(getAllNotes(), id);
+        Note foundNote = repo.getById(getAllNotes(), id);
         if (foundNote != null) {
             return foundNote;
         }
@@ -25,10 +25,10 @@ public class NotepadController {
     }
 
     public Note saveNote(Note note) {
-        return (Note) repo.create(note);
+        return repo.create(note);
     }
 
     public Note deleteNote(String id) {
-        return (Note) repo.delete(id);
+        return repo.delete(id);
     }
 }

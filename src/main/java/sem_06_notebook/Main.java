@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         JsonDb jsonDb = new JsonDb("src/main/java/sem_06_notebook/notes.json");
         TxtDb txtDb = new TxtDb("src/main/java/sem_06_notebook/notes/");
-        Repository<Note> notesRepo = new NoteRepository(jsonDb, txtDb);
+        Repository notesRepo = new Repository(jsonDb, txtDb);
         NotepadController controller = new NotepadController(notesRepo);
         NotepadView view = new NotepadView(controller);
         view.run();
