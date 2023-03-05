@@ -1,20 +1,20 @@
 package sem_06_notebook.controller;
 
 import sem_06_notebook.models.Note;
-import sem_06_notebook.models.Repository;
+import sem_06_notebook.models.Repositoriable;
 
 import java.io.IOException;
 import java.util.List;
 
 public class NotepadController {
-    private Repository repo;
+    private Repositoriable repo;
 
-    public NotepadController(Repository repo) {
+    public NotepadController(Repositoriable repo) {
         this.repo = repo;
     }
 
     public Note getNodeById(String id) {
-        return repo.getById(getAllNotes(), id);
+        return (Note) repo.getById(getAllNotes(), id);
     }
 
     public List<Note> getAllNotes() {
@@ -22,7 +22,7 @@ public class NotepadController {
     }
 
     public Note saveNote(Note note) throws IOException {
-        return repo.create(note);
+        return (Note) repo.create(note);
     }
 
     public boolean deleteNote(Note note) throws IOException {

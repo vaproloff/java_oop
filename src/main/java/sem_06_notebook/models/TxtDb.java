@@ -21,4 +21,11 @@ public class TxtDb{
         }
         Files.writeString(filePath, String.format("%s%n%s", note.getTopic(), note.getContent()));
     }
+
+    public void delete(Note note) throws IOException {
+        Path filePath = Path.of(dirPath + note.getId());
+        if (Files.exists(filePath)) {
+            Files.delete(filePath);
+        }
+    }
 }

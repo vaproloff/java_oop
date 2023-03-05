@@ -19,13 +19,13 @@ public class NotepadView {
             try {
                 String command = prompt("""
                         ---Главное меню---
-                        1 - создать заметку, 2 - показать все заметки
-                        3 - выбрать заметку, 4 - поиск, 0 - выход
+                        1 - создать заметку, 2 - выбрать заметку
+                        3 - показать все, 4 - поиск, 0 - выход
                         Выбор:""" + " ");
                 switch (command) {
                     case "1" -> newNote();
-                    case "2" -> showAll();
-                    case "3" -> pickNote();
+                    case "2" -> pickNote();
+                    case "3" -> showAll();
                     case "4" -> search();
                     case "0" -> {
                         return;
@@ -60,13 +60,10 @@ public class NotepadView {
         if (note != null) {
             System.out.println(note);
             try {
-                String command = "";
-                while (!command.equals("0")) {
-                    command = prompt("1 - изменить, 2 - удалить, 0 - выход%nВыбор: ");
-                    switch (command) {
-                        case "1" -> updateNote(note);
-                        case "2" -> deleteNote(note);
-                    }
+                String command = prompt("1 - изменить, 2 - удалить, другой символ - выход\nВыбор: ");
+                switch (command) {
+                    case "1" -> updateNote(note);
+                    case "2" -> deleteNote(note);
                 }
             } catch (Exception e) {
                 System.out.printf("Произошла ошибка: %s\n", e.getMessage());
@@ -105,7 +102,7 @@ public class NotepadView {
         try {
             String command = "";
             while (!command.equals("0")) {
-                command = prompt("1 - изменить заголовок, 2 - изменить содержание, 0 - сохранить и выйти%nВыбор: ");
+                command = prompt("1 - изменить заголовок, 2 - изменить содержание, 0 - сохранить и выйти\nВыбор: ");
                 switch (command) {
                     case "1" -> note.setTopic(prompt("Введите новый заголовок: "));
                     case "2" -> note.setContent(prompt("Введите новое содержание: "));

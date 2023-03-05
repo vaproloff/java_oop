@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Repository {
+public class Repository implements Repositoriable<Note> {
     private JsonDb jsonDb;
     private TxtDb txtDb;
 
@@ -40,6 +40,7 @@ public class Repository {
         newNote.setId(String.format("%d", maxId + 1));
         notes.add(newNote);
         saveRepo(notes);
+        txtDb.save(newNote);
         return newNote;
     }
 
@@ -49,6 +50,7 @@ public class Repository {
         if (foundNote != null) {
             notes.remove(foundNote);
             saveRepo(notes);
+            txtDb.delete(foundNote);
             return true;
         }
         return false;
@@ -61,6 +63,7 @@ public class Repository {
             foundNote.setTopic(note.getTopic());
             foundNote.setContent(note.getContent());
             saveRepo(notes);
+            txtDb.save(foundNote);
             return true;
         }
         return false;
@@ -92,7 +95,7 @@ public class Repository {
         return foundNote;
     }
 
-    public void saveRepo(List<Note> notes) throws IOException {
+    public void saveRepo(List<Note> notes) {
         JSONArray notesJson = new JSONArray();
         for (Note note : notes) {
             JSONObject noteJson = new JSONObject();
@@ -100,8 +103,6 @@ public class Repository {
             noteJson.put("title", note.getTopic());
             noteJson.put("content", note.getContent());
             notesJson.add(noteJson);
-
-            txtDb.save(note);
         }
         jsonDb.save(notesJson);
     }
