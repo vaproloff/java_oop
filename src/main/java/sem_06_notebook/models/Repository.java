@@ -2,7 +2,9 @@ package sem_06_notebook.models;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import sem_05_personal.model.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,7 +12,6 @@ import java.util.List;
 public class Repository {
     private JsonDb jsonDb;
     private TxtDb txtDb;
-    private int currentId = 1;
 
     public Repository(JsonDb jsonDb, TxtDb txtDb) {
         this.jsonDb = jsonDb;
@@ -30,26 +31,55 @@ public class Repository {
         return notes;
     }
 
-    public Note create(Note note) {
+    public Note create(Note newNote) throws IOException {
         List<Note> notes = getAll();
-        note.setId(String.format("%d", currentId++));
-        notes.add(note);
+        int maxId = 0;
+        for (Note note : notes) {
+            maxId = Math.max(maxId, Integer.parseInt(note.getId()));
+        }
+        newNote.setId(String.format("%d", maxId + 1));
+        notes.add(newNote);
         saveRepo(notes);
-        return note;
+        return newNote;
     }
 
-    public Note delete(String id) {
+    public boolean delete(Note note) throws IOException {
         List<Note> notes = getAll();
-        Note foundNote = getById(notes, id);
+        Note foundNote = getById(notes, note.getId());
         if (foundNote != null) {
             notes.remove(foundNote);
             saveRepo(notes);
+            return true;
         }
-        return foundNote;
+        return false;
     }
 
-    public Note find(String request) {
-        return null;
+    public boolean update(Note note) throws IOException {
+        List<Note> notes = getAll();
+        Note foundNote = getById(notes, note.getId());
+        if (foundNote != null) {
+            foundNote.setTopic(note.getTopic());
+            foundNote.setContent(note.getContent());
+            saveRepo(notes);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Note> find(String request) {
+        List<Note> foundNotes = new ArrayList<>();
+        for (Note note : getAll()) {
+            if (note.getId().contains(request)) {
+                foundNotes.add(note);
+            }
+            if (note.getTopic().contains(request) && !foundNotes.contains(note)) {
+                foundNotes.add(note);
+            }
+            if (note.getContent().contains(request) && !foundNotes.contains(note)) {
+                foundNotes.add(note);
+            }
+        }
+        return foundNotes;
     }
 
     public Note getById(List<Note> notes, String id) {
@@ -62,7 +92,7 @@ public class Repository {
         return foundNote;
     }
 
-    public void saveRepo(List<Note> notes) {
+    public void saveRepo(List<Note> notes) throws IOException {
         JSONArray notesJson = new JSONArray();
         for (Note note : notes) {
             JSONObject noteJson = new JSONObject();
@@ -70,6 +100,8 @@ public class Repository {
             noteJson.put("title", note.getTopic());
             noteJson.put("content", note.getContent());
             notesJson.add(noteJson);
+
+            txtDb.save(note);
         }
         jsonDb.save(notesJson);
     }

@@ -4,8 +4,10 @@ import sem_06_notebook.controller.NotepadController;
 import sem_06_notebook.models.*;
 import sem_06_notebook.view.NotepadView;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         JsonDb jsonDb = new JsonDb("src/main/java/sem_06_notebook/notes.json");
         TxtDb txtDb = new TxtDb("src/main/java/sem_06_notebook/notes/");
         Repository notesRepo = new Repository(jsonDb, txtDb);
